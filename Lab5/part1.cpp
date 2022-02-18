@@ -104,8 +104,8 @@ int main(int argc, char const *argv[])
     //     }
     //     output_data.push_back(row);
     // }
-    grayscale(input_data,buffer,width,height,max);
     invert(buffer,output_data,width,height,max);
+    grayscale(input_data,buffer,width,height,max);
     //Writing pixel values to output file
     for(i=0;i<height;i++)
     {
