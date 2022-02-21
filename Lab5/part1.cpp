@@ -53,8 +53,8 @@ void invert(vector<vector<rgbpix>>& input_data, vector<vector<rgbpix>>& output_d
 int main(int argc, char const *argv[])
 {
     clock_t start=clock();
-    FILE *rfp = fopen("1p3.ppm","r");
-    FILE *wfp = fopen("1p3_op.ppm","w");
+    FILE *rfp = fopen(argv[1],"r");
+    FILE *wfp = fopen("output.ppm","w");
     int height=0, width=0, max=0;
     char ppm_version[5];
     fscanf(rfp,"%s",ppm_version);
@@ -90,8 +90,9 @@ int main(int argc, char const *argv[])
     }
     fclose(rfp);
 
-    grayscale(input_data,buffer,width,height,max);
-    invert(buffer,output_data,width,height,max);
+    invert(input_data,buffer,width,height,max);
+    grayscale(buffer,output_data,width,height,max);
+
     //Writing pixel values to output file
     for(i=0;i<height;i++)
     {

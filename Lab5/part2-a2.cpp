@@ -66,8 +66,8 @@ void invert(vector<vector<rgbpix>>& arg_data){
 int main(int argc, char const *argv[])
 {
     clock_t start=  clock();
-    FILE *rfp = fopen("3p3.ppm","r");
-    FILE *wfp = fopen("3p3_op.ppm","w");
+    FILE *rfp = fopen(argv[1],"r");
+    FILE *wfp = fopen("output.ppm","w");
     char ppm_version[5];
     fscanf(rfp,"%s",ppm_version);
     if(ppm_version[0]!='P' || ppm_version[1]!='3')
