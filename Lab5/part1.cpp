@@ -52,7 +52,7 @@ void invert(vector<vector<rgbpix>>& input_data, vector<vector<rgbpix>>& output_d
 }
 int main(int argc, char const *argv[])
 {
-   
+    clock_t start=clock();
     FILE *rfp = fopen("1p3.ppm","r");
     FILE *wfp = fopen("1p3_op.ppm","w");
     int height=0, width=0, max=0;
@@ -85,25 +85,11 @@ int main(int argc, char const *argv[])
             pix.g=g;
             pix.b=b;
             row.push_back(pix);
-            //fprintf(wfp,"%d %d %d\n",r,g,b);
         }
         input_data.push_back(row);
     }
     fclose(rfp);
-    //deepcopy of input_data to output_data - for testing
-    // for(i=0;i<height;i++)
-    // {
-    //     vector<rgbpix> row;
-    //     for(j=0;j<width;j++)
-    //     {
-    //         struct rgbpix pix;
-    //         pix.r=input_data[i][j].r;
-    //         pix.g=input_data[i][j].g;
-    //         pix.b=input_data[i][j].b;
-    //         row.push_back(pix);
-    //     }
-    //     output_data.push_back(row);
-    // }
+
     grayscale(input_data,buffer,width,height,max);
     invert(buffer,output_data,width,height,max);
     //Writing pixel values to output file
@@ -121,7 +107,6 @@ int main(int argc, char const *argv[])
         }
     }
     fclose(wfp);
-    
-
+    printf("Total Time Taken: %f\n",(double)(clock()-start)/CLOCKS_PER_SEC);
     return 0;
 }
