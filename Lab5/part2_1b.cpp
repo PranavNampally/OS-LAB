@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
 {
     clock_t start=  clock();
     FILE *rfp = fopen(argv[1],"r");
-    FILE *wfp = fopen("output.ppm","w");
+    FILE *wfp = fopen("output_part2_1b.ppm","w");
     char ppm_version[5];
     fscanf(rfp,"%s",ppm_version);
     if(ppm_version[0]!='P' || ppm_version[1]!='3')

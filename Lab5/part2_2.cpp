@@ -24,6 +24,7 @@ struct rgbpix{
     int r,g,b;
 };
 /* global semaphore variable */
+// #define SNAME "/sem"
 const char *semName = "asdfsd";
 
 /* global variables */
@@ -60,6 +61,7 @@ void invert(vector<vector<rgbpix>>& arg_data){
     int i,j;
     for(i=0;i<height;i++)
     {   
+        // vector<rgbpix> row;
         for(j=0;j<width;j++)
         {
             int r,g,b;
@@ -76,9 +78,8 @@ void invert(vector<vector<rgbpix>>& arg_data){
 
 int main(int argc, char const *argv[])
 {
-    clock_t start=clock();
     FILE *rfp = fopen(argv[1],"r");
-    FILE *wfp = fopen("output.ppm","w");
+    FILE *wfp = fopen("output_part2_2.ppm","w");
     char ppm_version[5];
     fscanf(rfp,"%s",ppm_version);
     if(ppm_version[0]!='P' || ppm_version[1]!='3')
@@ -86,10 +87,8 @@ int main(int argc, char const *argv[])
         cout<<"PPM file format not supported!!!"<<endl;
         return 0;
     }
-
     fscanf(rfp,"%d %d",&width,&height);
     fscanf(rfp,"%d",&max_val);
-
     int i,j;
     //Reading pixel values from input file
     for(i=0;i<height;i++)
@@ -112,7 +111,7 @@ int main(int argc, char const *argv[])
    
     int SHMSIZE=sizeof(rgbpix);
     size_t bytes = (sizeof(data[0][0]) * data[0].size())*data.size();
-    //Creating a child process
+    //Creating a child
     int pid = fork();
     if(pid == 0){ //child process
         sem_t *sem = sem_open(semName, O_CREAT, 0600, 0);
@@ -126,7 +125,6 @@ int main(int argc, char const *argv[])
             printf("shmget failed\n");
             return 0;
         }
-        
         // shmat to attach to shared memory
         if((shm = (char*)shmat(shmid,(void*)NULL,0))==(char*)-1){
             perror("shmat");
@@ -220,7 +218,6 @@ int main(int argc, char const *argv[])
         }
         fclose(wfp);
         printf("output PPM file write Finished\n");
-        printf("Total Time Taken: %f\n",(double)(clock()-start)/CLOCKS_PER_SEC);
         return 0;
     }
 }
