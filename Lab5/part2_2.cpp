@@ -78,6 +78,7 @@ void invert(vector<vector<rgbpix>>& arg_data){
 
 int main(int argc, char const *argv[])
 {
+    clock_t start=clock();
     FILE *rfp = fopen(argv[1],"r");
     FILE *wfp = fopen("output_part2_2.ppm","w");
     char ppm_version[5];
@@ -218,6 +219,7 @@ int main(int argc, char const *argv[])
         }
         fclose(wfp);
         printf("output PPM file write Finished\n");
+        printf("Total Time Taken: %f\n",(double)(clock()-start)/CLOCKS_PER_SEC);
         return 0;
     }
 }
