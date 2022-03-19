@@ -1,0 +1,28 @@
+SOLN:
+To get such an order the valid VAs for SEG0 should be 0 to 1 and for SEG1 Valid VAs should be 14 to 15.
+So, corresponding Phys. Addr for SEG0 should be: 0 to 1 and for SEg1 should be: 127 to 128
+In such a case we would have 
+For SEG0 : Base as 0 and Bound/Limit as 2
+For SEG2 : Base as 16 and Bound/Limit as 2
+ That is,
+ The command should be :
+ python2 segmentation.py -a 16 -p 128 -A 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --b0 0 --l0 2 --b1 16 --l1 2
+ 
+ Then we get the following output:
+ Virtual Address Trace
+  VA  0: 0x00000000 (decimal:    0) --> VALID in SEG0: 0x00000000 (decimal:    0)
+  VA  1: 0x00000001 (decimal:    1) --> VALID in SEG0: 0x00000001 (decimal:    1)
+  VA  2: 0x00000002 (decimal:    2) --> SEGMENTATION VIOLATION (SEG0)
+  VA  3: 0x00000003 (decimal:    3) --> SEGMENTATION VIOLATION (SEG0)
+  VA  4: 0x00000004 (decimal:    4) --> SEGMENTATION VIOLATION (SEG0)
+  VA  5: 0x00000005 (decimal:    5) --> SEGMENTATION VIOLATION (SEG0)
+  VA  6: 0x00000006 (decimal:    6) --> SEGMENTATION VIOLATION (SEG0)
+  VA  7: 0x00000007 (decimal:    7) --> SEGMENTATION VIOLATION (SEG0)
+  VA  8: 0x00000008 (decimal:    8) --> SEGMENTATION VIOLATION (SEG1)
+  VA  9: 0x00000009 (decimal:    9) --> SEGMENTATION VIOLATION (SEG1)
+  VA 10: 0x0000000a (decimal:   10) --> SEGMENTATION VIOLATION (SEG1)
+  VA 11: 0x0000000b (decimal:   11) --> SEGMENTATION VIOLATION (SEG1)
+  VA 12: 0x0000000c (decimal:   12) --> SEGMENTATION VIOLATION (SEG1)
+  VA 13: 0x0000000d (decimal:   13) --> SEGMENTATION VIOLATION (SEG1)
+  VA 14: 0x0000000e (decimal:   14) --> VALID in SEG1: 0x0000000e (decimal:   14)
+  VA 15: 0x0000000f (decimal:   15) --> VALID in SEG1: 0x0000000f (decimal:   15)

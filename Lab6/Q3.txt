@@ -1,0 +1,191 @@
+Reference:
+$ python2 paging-linear-size.py -v 20 -e 8 -p 4096 -c
+
+ARG bits in virtual address 20
+ARG page size 4096
+ARG pte size 8
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 20
+The page size: 4096 bytes
+Thus, the number of bits needed in the offset: 12
+Which leaves this many bits for the VPN: 8
+Thus, a virtual address looks like this:
+
+V V V V V V V V | O O O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 256.0
+- The size of each page table entry, which is: 8
+And then multiply them together. The final result:
+  2048 bytes
+  in KB: 2.0
+  in MB: 0.001953125
+
+Lower bits for VA:
+
+$ python2 paging-linear-size.py -v 16 -e 8 -p 4096 -c
+
+ARG bits in virtual address 16
+ARG page size 4096
+ARG pte size 8
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 16
+The page size: 4096 bytes
+Thus, the number of bits needed in the offset: 12
+Which leaves this many bits for the VPN: 4
+Thus, a virtual address looks like this:
+
+V V V V | O O O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 16.0
+- The size of each page table entry, which is: 8
+And then multiply them together. The final result:
+  128 bytes
+  in KB: 0.125
+  in MB: 0.0001220703125
+ 
+$ python2 paging-linear-size.py -v 32 -e 8 -p 4096 -c
+
+ARG bits in virtual address 32
+ARG page size 4096
+ARG pte size 8
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 32
+The page size: 4096 bytes
+Thus, the number of bits needed in the offset: 12
+Which leaves this many bits for the VPN: 20
+Thus, a virtual address looks like this:
+
+V V V V V V V V V V V V V V V V V V V V | O O O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 1048576.0
+- The size of each page table entry, which is: 8
+And then multiply them together. The final result:
+  8388608 bytes
+  in KB: 8192.0
+  in MB: 8.0
+
+This shows that as the no. of bits allocated for VA decrease, the Size of the Linear Page Table also decreases and vice versa. (multiplication factor is in terms of 2^{change in VPN bits} as Size of Page Table= 2^(VPN bits count)*(Size of PTE) )
+
+$ python2 paging-linear-size.py -v 20 -e 4 -p 4096 -c
+
+ARG bits in virtual address 20
+ARG page size 4096
+ARG pte size 4
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 20
+The page size: 4096 bytes
+Thus, the number of bits needed in the offset: 12
+Which leaves this many bits for the VPN: 8
+Thus, a virtual address looks like this:
+
+V V V V V V V V | O O O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 256.0
+- The size of each page table entry, which is: 4
+And then multiply them together. The final result:
+  1024 bytes
+  in KB: 1.0
+  in MB: 0.0009765625
+
+$ python2 paging-linear-size.py -v 20 -e 12 -p 4096 -c
+
+ARG bits in virtual address 20
+ARG page size 4096
+ARG pte size 12
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 20
+The page size: 4096 bytes
+Thus, the number of bits needed in the offset: 12
+Which leaves this many bits for the VPN: 8
+Thus, a virtual address looks like this:
+
+V V V V V V V V | O O O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 256.0
+- The size of each page table entry, which is: 12
+And then multiply them together. The final result:
+  3072 bytes
+  in KB: 3.0
+  in MB: 0.0029296875
+
+This shows that as the PTE Size decrease, the Size of the Linear Page Table also decreases and vice versa. (multiplication factor is in terms of 2^{change in VPN bits} as Size of Page Table= 2^(VPN bits count)*(Size of PTE) )
+
+$ python2 paging-linear-size.py -v 20 -e 8 -p 1024 -c
+
+ARG bits in virtual address 20
+ARG page size 1024
+ARG pte size 8
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 20
+The page size: 1024 bytes
+Thus, the number of bits needed in the offset: 10
+Which leaves this many bits for the VPN: 10
+Thus, a virtual address looks like this:
+
+V V V V V V V V V V | O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 1024.0
+- The size of each page table entry, which is: 8
+And then multiply them together. The final result:
+  8192 bytes
+  in KB: 8.0
+  in MB: 0.0078125
+
+$ python2 paging-linear-size.py -v 20 -e 8 -p 16384 -c
+
+ARG bits in virtual address 20
+ARG page size 16384
+ARG pte size 8
+
+Recall that an address has two components: 
+[ Virtual Page Number (VPN) | Offset ]
+
+The number of bits in the virtual address: 20
+The page size: 16384 bytes
+Thus, the number of bits needed in the offset: 14
+Which leaves this many bits for the VPN: 6
+Thus, a virtual address looks like this:
+
+V V V V V V | O O O O O O O O O O O O O O 
+
+where V is for a VPN bit and O is for an offset bit
+To compute the size of the linear page table, we need to know:
+- The # of entries in the table, which is 2^(num of VPN bits): 64.0
+- The size of each page table entry, which is: 8
+And then multiply them together. The final result:
+  512 bytes
+  in KB: 0.5
+  in MB: 0.00048828125
+
+This shows that as the Page Size decrease, the Size of the Linear Page Table also increases and vice versa. (multiplication factor is in terms of 2^{change in VPN bits} as Size of Page Table= 2^(VPN bits count)*(Size of PTE) ).
+And here as Page size increases we see that No. of Offset bits increase, hence the VPN bits decrease (as VPN bits +Offset Bits= Bits for VA [which is constant here]), if VPN bits increase then the Page Table Size will also increase (as Size of Page Table= 2^(VPN bits count)*(Size of PTE)).

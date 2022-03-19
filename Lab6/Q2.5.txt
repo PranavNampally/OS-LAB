@@ -1,0 +1,11 @@
+No Virtual will be valid when then limit for both the segments is set to 0 each and also bases can be initialized to 0 each.
+That is,
+-l=0
+-L=0
+which is same as,
+--l0=0
+--l1=0
+
+Then there won't be any space allocated to any of the segments so all VAs will be invalid in such a case.
+
+Command: python2 segmentation.py -b 0 -l 0 -B 0 -L 0 

@@ -1,0 +1,107 @@
+pranav@pranav:/media/pranav/Pranav's Files/OSLAB-Github/Lab6$ python2 relocation.py -s 0 -n 10 -l 100
+
+ARG seed 0
+ARG address space size 1k
+ARG phys mem size 16k
+
+Base-and-Bounds register information:
+
+  Base   : 0x0000360b (decimal 13835)
+  Limit  : 100
+
+Virtual Address Trace
+  VA  0: 0x00000308 (decimal:  776) --> PA or segmentation violation?
+  VA  1: 0x000001ae (decimal:  430) --> PA or segmentation violation?
+  VA  2: 0x00000109 (decimal:  265) --> PA or segmentation violation?
+  VA  3: 0x0000020b (decimal:  523) --> PA or segmentation violation?
+  VA  4: 0x0000019e (decimal:  414) --> PA or segmentation violation?
+  VA  5: 0x00000322 (decimal:  802) --> PA or segmentation violation?
+  VA  6: 0x00000136 (decimal:  310) --> PA or segmentation violation?
+  VA  7: 0x000001e8 (decimal:  488) --> PA or segmentation violation?
+  VA  8: 0x00000255 (decimal:  597) --> PA or segmentation violation?
+  VA  9: 0x000003a1 (decimal:  929) --> PA or segmentation violation?
+
+For each virtual address, either write down the physical address it translates to
+OR write down that it is an out-of-bounds address (a segmentation violation). For
+this problem, you should assume a simple virtual address space of a given size.
+==========================================================================================================================
+pranav@pranav:/media/pranav/Pranav's Files/OSLAB-Github/Lab6$ python2 relocation.py -s 0 -n 10 -l 100 -c
+
+ARG seed 0
+ARG address space size 1k
+ARG phys mem size 16k
+
+Base-and-Bounds register information:
+
+  Base   : 0x0000360b (decimal 13835)
+  Limit  : 100
+
+Virtual Address Trace
+  VA  0: 0x00000308 (decimal:  776) --> SEGMENTATION VIOLATION
+  VA  1: 0x000001ae (decimal:  430) --> SEGMENTATION VIOLATION
+  VA  2: 0x00000109 (decimal:  265) --> SEGMENTATION VIOLATION
+  VA  3: 0x0000020b (decimal:  523) --> SEGMENTATION VIOLATION
+  VA  4: 0x0000019e (decimal:  414) --> SEGMENTATION VIOLATION
+  VA  5: 0x00000322 (decimal:  802) --> SEGMENTATION VIOLATION
+  VA  6: 0x00000136 (decimal:  310) --> SEGMENTATION VIOLATION
+  VA  7: 0x000001e8 (decimal:  488) --> SEGMENTATION VIOLATION
+  VA  8: 0x00000255 (decimal:  597) --> SEGMENTATION VIOLATION
+  VA  9: 0x000003a1 (decimal:  929) --> SEGMENTATION VIOLATION
+
+=================================================================================================================================================================================
+SOLN: Whatever be the Base value it doesn't affect the the decision as we just need the limit value to decide whether its a page fault or not. So, here as 100< all the VA decimal values, thus these are all page  faults. Even if we change the base it doesn't matter here incase of page faults.
+The max value of physical addr=16K=16*1024=16384
+And, we need base=max.phy.addr -100(limit)=16384-100=16284
+=================================================================================================================================================================================
+pranav@pranav:/media/pranav/Pranav's Files/OSLAB-Github/Lab6$ python2 relocation.py -s 0 -n 10 -l 100 -b 16284 
+
+ARG seed 0
+ARG address space size 1k
+ARG phys mem size 16k
+
+Base-and-Bounds register information:
+
+  Base   : 0x00003f9c (decimal 16284)
+  Limit  : 100
+
+Virtual Address Trace
+  VA  0: 0x00000360 (decimal:  864) --> PA or segmentation violation?
+  VA  1: 0x00000308 (decimal:  776) --> PA or segmentation violation?
+  VA  2: 0x000001ae (decimal:  430) --> PA or segmentation violation?
+  VA  3: 0x00000109 (decimal:  265) --> PA or segmentation violation?
+  VA  4: 0x0000020b (decimal:  523) --> PA or segmentation violation?
+  VA  5: 0x0000019e (decimal:  414) --> PA or segmentation violation?
+  VA  6: 0x00000322 (decimal:  802) --> PA or segmentation violation?
+  VA  7: 0x00000136 (decimal:  310) --> PA or segmentation violation?
+  VA  8: 0x000001e8 (decimal:  488) --> PA or segmentation violation?
+  VA  9: 0x00000255 (decimal:  597) --> PA or segmentation violation?
+
+For each virtual address, either write down the physical address it translates to
+OR write down that it is an out-of-bounds address (a segmentation violation). For
+this problem, you should assume a simple virtual address space of a given size.
+=====================================================================================================
+pranav@pranav:/media/pranav/Pranav's Files/OSLAB-Github/Lab6$ python2 relocation.py -s 0 -n 10 -l 100 -b 16284 -c
+
+ARG seed 0
+ARG address space size 1k
+ARG phys mem size 16k
+
+Base-and-Bounds register information:
+
+  Base   : 0x00003f9c (decimal 16284)
+  Limit  : 100
+
+Virtual Address Trace
+  VA  0: 0x00000360 (decimal:  864) --> SEGMENTATION VIOLATION
+  VA  1: 0x00000308 (decimal:  776) --> SEGMENTATION VIOLATION
+  VA  2: 0x000001ae (decimal:  430) --> SEGMENTATION VIOLATION
+  VA  3: 0x00000109 (decimal:  265) --> SEGMENTATION VIOLATION
+  VA  4: 0x0000020b (decimal:  523) --> SEGMENTATION VIOLATION
+  VA  5: 0x0000019e (decimal:  414) --> SEGMENTATION VIOLATION
+  VA  6: 0x00000322 (decimal:  802) --> SEGMENTATION VIOLATION
+  VA  7: 0x00000136 (decimal:  310) --> SEGMENTATION VIOLATION
+  VA  8: 0x000001e8 (decimal:  488) --> SEGMENTATION VIOLATION
+  VA  9: 0x00000255 (decimal:  597) --> SEGMENTATION VIOLATION
+
+
+

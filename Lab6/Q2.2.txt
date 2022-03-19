@@ -1,0 +1,52 @@
+SOLN: 
+As explained above,
+Here Address Space Size: 128, Physical Memory Size: 512, Value of Segment 0 Base Register: 0, Value of Segment 0 Limit Register: 20, Value of Segment 1 Base Register: 512, Value of Segment 1 Limit Register: 20
+
+So for SEG0: Valid VAs are 0 to 19 for Phy.Addr: 0 to 19
+For SEG1 valid VAs are 108 to 127 for Phys. Addr: 492 to 511
+
+So, 
+The highest legal virtual address in segment 0: 19
+The lowest legal virtual address in segment 1: 128 - 20 = 108
+The lowest illegal virtual address in Entire Addr. Space: 20
+The highest illegal virtual address in Entire Addr. Space: 107
+
+Testing segmentation.py with -A flag can be done as follows:
+python2 segmentation.py -a 128 -p 512 -b 0 -l 20 -B 512 -L 20 -s 1 -A 19,108,20,107 
+
+
+pranav@pranav:/media/pranav/Pranav's Files/OSLAB-Github/Lab6$ python2 segmentation.py -a 128 -p 512 -b 0 -l 20 -B 512 -L 20 -s 1 -A 19,108,20,107 
+ARG seed 1
+ARG address space size 128
+ARG phys mem size 512
+
+Segment register information:
+
+  Segment 0 base  (grows positive) : 0x00000000 (decimal 0)
+  Segment 0 limit                  : 20
+
+  Segment 1 base  (grows negative) : 0x00000200 (decimal 512)
+  Segment 1 limit                  : 20
+
+Virtual Address Trace
+  VA  0: 0x00000013 (decimal:   19) --> PA or segmentation violation?
+  VA  1: 0x0000006c (decimal:  108) --> PA or segmentation violation?
+  VA  2: 0x00000014 (decimal:   20) --> PA or segmentation violation?
+  VA  3: 0x0000006b (decimal:  107) --> PA or segmentation violation?
+
+For each virtual address, either write down the physical address it translates to
+OR write down that it is an out-of-bounds address (a segmentation violation). For
+this problem, you should assume a simple address space with two segments: the top
+bit of the virtual address can thus be used to check whether the virtual address
+is in segment 0 (topbit=0) or segment 1 (topbit=1). Note that the base/limit pairs
+given to you grow in different directions, depending on the segment, i.e., segment 0
+grows in the positive direction, whereas segment 1 in the negative. 
+
+Then we see that,
+NOTE: In case of Segmentation Violation, consider 1st half [0 to 63] for SEG0 and remaining for SEG2[64 to 127]
+
+VA  0: 0x00000013 (decimal:   19) --> VALID in SEG0: 0x00000013 (decimal:   19) as 0+(19-0)=19
+VA  1: 0x0000006c (decimal:  108) --> VALID in SEG1: 0x000001ec (decimal:  492) as 492+(108-108)=492
+VA  2: 0x00000014 (decimal:   20) --> SEGMENTATION VIOLATION (SEG0)
+VA  3: 0x0000006b (decimal:  107) --> SEGMENTATION VIOLATION (SEG1)
+

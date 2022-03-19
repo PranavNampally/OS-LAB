@@ -1,0 +1,17 @@
+#!/bin/bash
+echo "Running commands for Random Policy"
+gcc random.c -o random
+./random > random.dat
+gnuplot random.p
+echo "Running commands for Optimal Policy"
+gcc optimal.c -o optimal
+./optimal > optimal.dat
+gnuplot optimal.p
+echo "Running commands for LRU"
+gcc lru.c -o lru
+./lru > lru.dat
+gnuplot lru.p
+echo "Running commands for Clock Algorithm"
+gcc clock.c -o clock
+./clock > clock.dat
+gnuplot clock.p

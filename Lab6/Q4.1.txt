@@ -1,0 +1,5 @@
+We know that,
+Size of Page Table = Address Space Size / Page Size
+So, we see that as Address Space Size increases then the Page Table size also increases.(as they are directly proportional)
+And when  Page size increases then the Page Table size decreases.(as they are inversely proportional)
+Using big pages in general will cause wastage of space especially a scenario of Internal Fragmentation.

@@ -1,0 +1,52 @@
+pranav@pranav:/media/pranav/Pranav's Files/OSLAB-Github/Lab6$ python2 relocation.py -s 1 -n 10 -l 100 -b 1073741724 -a 32m -p 1g -c
+
+ARG seed 1
+ARG address space size 32m
+ARG phys mem size 1g
+
+Base-and-Bounds register information:
+
+  Base   : 0x3fffff9c (decimal 1073741724)
+  Limit  : 100
+
+Virtual Address Trace
+  VA  0: 0x0044cb63 (decimal: 4508515) --> SEGMENTATION VIOLATION
+  VA  1: 0x01b1e2d5 (decimal: 28435157) --> SEGMENTATION VIOLATION
+  VA  2: 0x01870d77 (decimal: 25628023) --> SEGMENTATION VIOLATION
+  VA  3: 0x00829868 (decimal: 8558696) --> SEGMENTATION VIOLATION
+  VA  4: 0x00fda9aa (decimal: 16624042) --> SEGMENTATION VIOLATION
+  VA  5: 0x00e623b1 (decimal: 15082417) --> SEGMENTATION VIOLATION
+  VA  6: 0x014d9d98 (decimal: 21863832) --> SEGMENTATION VIOLATION
+  VA  7: 0x0193d38c (decimal: 26465164) --> SEGMENTATION VIOLATION
+  VA  8: 0x00300e5d (decimal: 3149405) --> SEGMENTATION VIOLATION
+  VA  9: 0x000e838f (decimal: 951183) --> SEGMENTATION VIOLATION
+
+CHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+I have considered the Address space size as 128m (-a) and Physical Memory Size as 4g (-p), which are large as required.
+Then, the max value of physical addr= 4g =4*1024*1024*1024=4294967296
+And, we need max base=max.phy.addr -100(limit)=4294967296-100=4294967196.
+But, as explained in Q1.3, this base value doesn't change the decision regarding a VA causes a segmentation fault or gives a Valid PA.
+
+$ python2 relocation.py -s 1 -n 10 -l 100 -b 4294967196 -a 128m -p 4g
+
+ARG seed 1
+ARG address space size 128m
+ARG phys mem size 4g
+
+Base-and-Bounds register information:
+
+  Base   : 0xffffff9c (decimal 4294967196)
+  Limit  : 100
+
+Virtual Address Trace
+  VA  0: 0x01132d8f (decimal: 18034063) --> SEGMENTATION VIOLATION
+  VA  1: 0x06c78b56 (decimal: 113740630) --> SEGMENTATION VIOLATION
+  VA  2: 0x061c35de (decimal: 102512094) --> SEGMENTATION VIOLATION
+  VA  3: 0x020a61a1 (decimal: 34234785) --> SEGMENTATION VIOLATION
+  VA  4: 0x03f6a6ab (decimal: 66496171) --> SEGMENTATION VIOLATION
+  VA  5: 0x03988ec5 (decimal: 60329669) --> SEGMENTATION VIOLATION
+  VA  6: 0x05367660 (decimal: 87455328) --> SEGMENTATION VIOLATION
+  VA  7: 0x064f4e30 (decimal: 105860656) --> SEGMENTATION VIOLATION
+  VA  8: 0x00c03974 (decimal: 12597620) --> SEGMENTATION VIOLATION
+  VA  9: 0x003a0e3d (decimal: 3804733) --> SEGMENTATION VIOLATION
+

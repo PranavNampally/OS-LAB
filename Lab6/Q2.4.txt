@@ -1,0 +1,5 @@
+SOLN:
+We should have the limit value as 90% of address space size.
+That is,
+--l0 = 0.9 * (addr. space size)/2
+--l1 = 0.9 * (addr. space size)/2

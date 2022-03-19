@@ -1,0 +1,42 @@
+
+Case 1: python2 paging-linear-translate.py -P 1k -a 16k -p 32k -v -u 0
+VA 0x00003a39 (decimal:    14905) -->  Invalid (VPN 14 not valid)
+VA 0x00003ee5 (decimal:    16101) -->  Invalid (VPN 15 not valid)
+VA 0x000033da (decimal:    13274) -->  Invalid (VPN 12 not valid)
+VA 0x000039bd (decimal:    14781) -->  Invalid (VPN 14 not valid)
+VA 0x000013d9 (decimal:     5081) -->  Invalid (VPN 4 not valid)
+
+Case 2: python2 paging-linear-translate.py -P 1k -a 16k -p 32k -v -u 25
+  VA 0x00003986 (decimal:    14726) -->  Invalid (VPN 14 not valid)
+  VA 0x00002bc6 (decimal:    11206) --> 00004fc6 (decimal    20422) [VPN 10] (as 10*1024<11206<11*1024)
+  VA 0x00001e37 (decimal:     7735) -->  Invalid (VPN 7 not valid)
+  VA 0x00000671 (decimal:     1649) -->  Invalid (VPN 1 not valid)
+  VA 0x00001bc9 (decimal:     7113) -->  Invalid (VPN 6 not valid)
+
+Case 3: python2 paging-linear-translate.py -P 1k -a 16k -p 32k -v -u 50
+  VA 0x00003385 (decimal:    13189) --> 00003f85 (decimal    16261) [VPN 12] (as 12*1024<11206<13*1024)
+  VA 0x0000231d (decimal:     8989) -->  Invalid (VPN 8 not valid)
+  VA 0x000000e6 (decimal:      230) --> 000060e6 (decimal    24806) [VPN 0] (as 0*1024<11206<1*1024)
+  VA 0x00002e0f (decimal:    11791) -->  Invalid (VPN 11 not valid)
+  VA 0x00001986 (decimal:     6534) --> 00007586 (decimal    30086) [VPN 6] (as 6*1024<11206<7*1024)
+
+Case 4: python2 paging-linear-translate.py -P 1k -a 16k -p 32k -v -u 75
+  VA 0x00002e0f (decimal:    11791) --> 00004e0f (decimal    19983) [VPN 11] (as 11*1024<11206<12*1024)
+  VA 0x00001986 (decimal:     6534) --> 00007d86 (decimal    32134) [VPN 6] (as 6*1024<11206<7*1024)
+  VA 0x000034ca (decimal:    13514) --> 00006cca (decimal    27850) [VPN 13] (as 13*1024<11206<14*1024)
+  VA 0x00002ac3 (decimal:    10947) --> 00000ec3 (decimal     3779) [VPN 10] (as 10*1024<11206<11*1024)
+  VA 0x00000012 (decimal:       18) --> 00006012 (decimal    24594) [VPN 0] (as 0*1024<11206<1*1024)
+
+Case 5: python2 paging-linear-translate.py -P 1k -a 16k -p 32k -v -u 100
+  VA 0x00002e0f (decimal:    11791) --> 00004e0f (decimal    19983) [VPN 11] (as 11*1024<11206<12*1024)
+  VA 0x00001986 (decimal:     6534) --> 00007d86 (decimal    32134) [VPN 6] (as 6*1024<11206<7*1024)
+  VA 0x000034ca (decimal:    13514) --> 00006cca (decimal    27850) [VPN 13] (as 13*1024<11206<14*1024)
+  VA 0x00002ac3 (decimal:    10947) --> 00000ec3 (decimal     3779) [VPN 10] (as 10*1024<11206<11*1024)
+  VA 0x00000012 (decimal:       18) --> 00006012 (decimal    24594) [VPN 0] (as 0*1024<11206<1*1024)
+
+Here, Addr space = 16K=2^14,i.e. 14 bits in total. As Page size=1K=2^10,i.e. 10 bits for offset. No. of Pages=2^14/2^10=2^4,i.e. 4 bits for indexing pages
+Explanation for Case 2, VA2: 0x00002bc6: Binary 1010 1111000110.
+So VPN: 1010=10, and Offset= 1111000110. Then corresponding PFN for VPN(10) is: 0x80000013 => Binary: 00000000010011. So Physical Addr=10011 1111000110=0x4fc6=20422 (replacing VPN in VA with corresponding PFN).
+As we increase the percentage of pages that are allocated in each address space , we see that more memory access operations become valid however free space decreases.
+
+
